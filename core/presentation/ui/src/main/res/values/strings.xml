@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_disk_full">Disk is full</string>
+    <string name="error_request_timeout">Request timedout</string>
+    <string name="error_too_many_requests">Too many requests</string>
+    <string name="error_no_internet">No Internet</string>
+    <string name="error_payload_too_large">Payload is too large</string>
+    <string name="error_server_error">Server error</string>
+    <string name="error_request_serialization">Serialization request error</string>
+    <string name="error_unknown">Unknown error</string>
+</resources>

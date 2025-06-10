@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="total_balance">Total Balance</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="analytics">Analytics</string>
+    <string name="month_budget">Budget Tracker</string>
+</resources>

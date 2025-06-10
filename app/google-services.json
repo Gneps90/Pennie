@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "570344580986",
+    "project_id": "pennie-dde78",
+    "storage_bucket": "pennie-dde78.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570344580986:android:9d659895c140b7f1c298c3",
+        "android_client_info": {
+          "package_name": "com.jash.pennie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVS2X2TRMCUHySO4Q8AtDMsdeJoNbFmek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
