@@ -1,9 +1,6 @@
 package com.jash.pennie
 
-
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,6 +9,9 @@ import androidx.navigation.navigation
 import com.jash.feature_auth.auth_presentation.intro.IntroScreenRoot
 import com.jash.feature_auth.auth_presentation.login.LoginScreenRoot
 import com.jash.feature_auth.auth_presentation.register.RegisterScreenRoot
+import com.jash.feature_overview.presentation.OverviewScreen
+import com.jash.feature_overview.presentation.OverviewViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun NavigationRoot(
@@ -20,13 +20,12 @@ fun NavigationRoot(
 ) {
     NavHost(
         navController = navController,
-        startDestination = if (isLoggedIn) "auth" else "overview"
+        startDestination = if (isLoggedIn) "overview" else "auth"
     ) {
         authGraph(navController)
-
-        composable("main_flow") {
-
-            Text("You are logged in!")
+        composable("overview") {
+            val viewModel: OverviewViewModel = koinViewModel()
+            OverviewScreen(state = viewModel.state)
         }
     }
 }
@@ -58,7 +57,9 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
                     }
                 },
                 onSuccessfulRegistration = {
-                    navController.navigate("login")
+                    navController.navigate("overview") {
+                        popUpTo("auth") { inclusive = true }
+                    }
                 }
             )
         }
@@ -66,9 +67,7 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
             LoginScreenRoot(
                 onLoginSuccess = {
                     navController.navigate("overview") {
-                        popUpTo("auth") {
-                            inclusive = true
-                        }
+                        popUpTo("auth") { inclusive = true }
                     }
                 },
                 onSignUpClick = {

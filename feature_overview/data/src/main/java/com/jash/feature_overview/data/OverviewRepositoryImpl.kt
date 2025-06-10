@@ -1,9 +1,11 @@
 package com.jash.feature_overview.data
 
-
 import com.jash.core.database.dao.AccountDao
+import com.jash.core.database.dao.BudgetDao
 import com.jash.core.database.dao.TransactionDao
+import com.jash.core.database.mappers.toBudget
 import com.jash.core.database.mappers.toTransaction
+import com.jash.core.domain.Budget
 import com.jash.core.domain.Transaction
 import com.jash.feature_overview.domain.OverviewRepository
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +14,8 @@ import kotlinx.coroutines.flow.map
 
 class OverviewRepositoryImpl(
     private val transactionDao: TransactionDao,
-    private val accountDao: AccountDao
+    private val accountDao: AccountDao,
+    private val budgetDao: BudgetDao
 ) : OverviewRepository {
 
     override fun getRecentTransactions(): Flow<List<Transaction>> {
@@ -49,6 +52,13 @@ class OverviewRepositoryImpl(
             transactions
                 .filter { it.type == "EXPENSE" }
                 .sumOf { it.amount }
+        }
+    }
+
+
+    override fun getActiveBudget(): Flow<Budget?> {
+        return budgetDao.getActiveBudget().map { budgetEntity ->
+            budgetEntity?.toBudget()
         }
     }
 }

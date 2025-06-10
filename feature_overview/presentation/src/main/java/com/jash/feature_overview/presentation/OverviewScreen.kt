@@ -5,7 +5,6 @@ package com.jash.feature_overview.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -24,11 +23,12 @@ import com.jash.core.presentation.designsystem.componants.utils.DropDownItem
 import com.jash.feature_overview.presentation.componants.BudgetTracker
 import com.jash.feature_overview.presentation.componants.TotalBalanceCard
 import com.pennie.feature_overview.presentation.R
+import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
 fun OverviewScreen(
-    state: OverviewState
+    state: StateFlow<OverviewState>
 ) {
     val topAppBarState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
@@ -84,14 +84,7 @@ fun OverviewScreen(
                         onViewAllClick = { /* TODO */ }
                     )
                 }
-                item {
-                    BudgetTracker(
-                        title = state.budgetTitle,
-                        progress = state.budgetProgress,
-                        percentageText = state.budgetPercentageText,
-                        amountText = state.budgetAmountText
-                    )
-                }
+                // here
             }
         }
     }

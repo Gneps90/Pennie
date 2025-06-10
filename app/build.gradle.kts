@@ -33,7 +33,7 @@ dependencies {
     implementation(libs.com.google.firebase.firebase.analytics)
 
     // Koin for DI
-    implementation(libs.bundles.koin) // Includes koin-android, koin-androidx-compose
+    implementation(libs.bundles.koin.compose)
 
     implementation(libs.androidx.security.crypto.ktx)
 
@@ -57,6 +57,10 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:database"))
     implementation(project(":core:notification"))
+    implementation(project(":feature_overview:domain"))
+    implementation(project(":feature_overview:data"))
+    implementation(project(":feature_overview:presentation"))
+
 
     // Pennie Feature Modules (Presentation layers)
     implementation(project(":feature_auth:auth_presentation"))

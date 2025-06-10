@@ -8,7 +8,7 @@ android {
 
 dependencies {
     implementation(project(":core:domain"))
-    implementation(project(":core:database")) // To access DAOs for aggregating data
+    implementation(project(":core:database"))
     implementation(project(":feature_overview:domain"))
 
     implementation(libs.bundles.koin)
