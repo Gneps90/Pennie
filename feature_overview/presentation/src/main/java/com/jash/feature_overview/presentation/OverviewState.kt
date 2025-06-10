@@ -9,7 +9,7 @@ data class OverviewState(
     val formattedExpenses: String = "£0.00",
     val recentTransactions: List<TransactionUiModel> = emptyList(),
     val isLoading: Boolean = true,
-    val activeBudget: Budget? = null
+    val budget: BudgetUiModel? = null
 )
 
 // Represents a single transaction item in the UI list
@@ -23,9 +23,9 @@ data class TransactionUiModel(
 )
 
 data class BudgetUiModel(
-    val budgetTitle: String = "Monthly Budget",
-    val budgetProgress: Float = 0f,
-    val budgetPercentageText: String = "0%",
-    val budgetAmountText: String = "£0 / £0",
-    val isLoading: Boolean = true
+    val title: String,
+    val progress: Float,
+    val percentageText: String,
+    val amountText: String,
+    val isLoading: Boolean
 )

@@ -4,16 +4,21 @@ package com.jash.feature_overview.presentation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.jash.core.presentation.designsystem.AnalyticsIcon
 import com.jash.core.presentation.designsystem.LogoIcon
 import com.jash.core.presentation.designsystem.PennieTheme
@@ -22,18 +27,21 @@ import com.jash.core.presentation.designsystem.componants.PennieToolbar
 import com.jash.core.presentation.designsystem.componants.utils.DropDownItem
 import com.jash.feature_overview.presentation.componants.BudgetTracker
 import com.jash.feature_overview.presentation.componants.TotalBalanceCard
+import com.jash.feature_overview.presentation.componants.TransactionListItem
 import com.pennie.feature_overview.presentation.R
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 
 @Composable
 fun OverviewScreen(
-    state: StateFlow<OverviewState>
+    stateFlow: StateFlow<OverviewState>
 ) {
     val topAppBarState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
         state = topAppBarState
     )
+    val state by stateFlow.collectAsState()
 
     PennieScaffold(
         topAppbar = {
@@ -58,9 +66,9 @@ fun OverviewScreen(
             )
         },
 
-    ) {
+        ) { paddingValues ->
 
-        if(state.isLoading) {
+        if (state.isLoading) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
@@ -70,21 +78,55 @@ fun OverviewScreen(
                     .fillMaxSize()
                     .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(top = 64.dp, bottom = 16.dp)
+                contentPadding = paddingValues
             )
 
             {
 
                 item {
                     TotalBalanceCard(
-                        modifier = Modifier .fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth(),
                         totalBalance = state.formattedBalance,
                         income = state.formattedIncome,
                         expenses = state.formattedExpenses,
                         onViewAllClick = { /* TODO */ }
                     )
                 }
-                // here
+
+                // Add the budget tracker if a budget is active
+                state.budget?.let {
+                    item {
+                        BudgetTracker(
+                            title = it.title,
+                            progress = it.progress,
+                            percentageText = it.percentageText,
+                            amountText = it.amountText
+                        )
+                    }
+                }
+
+                // Add a header for recent transactions
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Recent Transactions",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        TextButton(onClick = { /* TODO: Navigate to all transactions */ }) {
+                            Text(text = "View All")
+                        }
+                    }
+                }
+
+                // Add the list of transactions
+                items(state.recentTransactions) { transaction ->
+                    TransactionListItem(transaction = transaction)
+                }
             }
         }
     }
@@ -105,23 +147,23 @@ private fun OverviewScreenPreview() {
                     amount = "-£9.99",
                     category = "Subscriptions",
                     date = "Today",
-                    icon = Icons.Default.Warning // Using a placeholder icon
-                ),
-                TransactionUiModel(
-                    id = "2",
-                    description = "Salary",
-                    amount = "+£2,500.00",
-                    category = "Income",
-                    date = "Yesterday",
-                    icon = Icons.Default.Warning // Using a placeholder icon
+                    icon = Icons.Default.Warning
                 )
             ),
-            isLoading = false // Set to false to see the content, true to see the spinner
+            budget = BudgetUiModel(
+                title = "Monthly Budget",
+                progress = 0.75f,
+                percentageText = "75%",
+                amountText = "£750 / £1000",
+                isLoading = false
+            ),
+            isLoading = false
         )
+        // Use a MutableStateFlow for the preview
+        val stateFlow = MutableStateFlow(sampleState)
 
         OverviewScreen(
-            state = sampleState,
-
+            stateFlow = stateFlow,
         )
     }
 }
