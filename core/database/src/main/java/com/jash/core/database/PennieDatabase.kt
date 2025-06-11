@@ -3,6 +3,8 @@ package com.jash.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.jash.core.database.dao.AccountDao
 import com.jash.core.database.dao.BudgetDao
 import com.jash.core.database.dao.CategoryDao
@@ -31,4 +33,10 @@ abstract class PennieDatabase : RoomDatabase() {
     abstract val accountDao: AccountDao
     abstract val categoryDao: CategoryDao
     abstract val budgetDao: BudgetDao
+}
+
+val MIGRATION_1_2 = object : Migration(1, 2) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("ALTER TABLE budgets ADD COLUMN isPrimary INTEGER NOT NULL DEFAULT 0")
+    }
 }

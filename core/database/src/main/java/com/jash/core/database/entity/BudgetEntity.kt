@@ -19,11 +19,12 @@ import java.time.ZonedDateTime
 )
 data class BudgetEntity(
     @PrimaryKey
-    val id: String, // e.g., a UUID string
+    val id: String,
     val name: String,
-    val amount: Double, // The total budget amount
-    val categoryId: String, // Links to a specific category
-    val period: String, // e.g., "MONTHLY", "WEEKLY", "YEARLY"
+    val amount: Double,
+    val categoryId: String,
+    val period: String,
     val startDate: ZonedDateTime,
-    val recurring: Boolean = true // Does this budget repeat?
+    val recurring: Boolean = true,
+    val isPrimary: Boolean = false
 )

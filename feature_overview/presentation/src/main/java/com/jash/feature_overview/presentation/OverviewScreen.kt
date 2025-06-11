@@ -14,14 +14,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.jash.core.presentation.designsystem.AnalyticsIcon
+
 import com.jash.core.presentation.designsystem.LogoIcon
+import com.jash.core.presentation.designsystem.LogoutIcon
 import com.jash.core.presentation.designsystem.PennieTheme
+
 import com.jash.core.presentation.designsystem.componants.PennieScaffold
 import com.jash.core.presentation.designsystem.componants.PennieToolbar
 import com.jash.core.presentation.designsystem.componants.utils.DropDownItem
@@ -51,7 +53,7 @@ fun OverviewScreen(
                 scrollBehavior = scrollBehavior,
                 menuItems = listOf(
                     DropDownItem(
-                        icon = AnalyticsIcon,
+                        icon = LogoutIcon,
                         title = stringResource(id = R.string.analytics)
                     ),
                 ),
@@ -80,9 +82,7 @@ fun OverviewScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 contentPadding = paddingValues
             )
-
             {
-
                 item {
                     TotalBalanceCard(
                         modifier = Modifier.fillMaxWidth(),
@@ -92,8 +92,6 @@ fun OverviewScreen(
                         onViewAllClick = { /* TODO */ }
                     )
                 }
-
-                // Add the budget tracker if a budget is active
                 state.budget?.let {
                     item {
                         BudgetTracker(
@@ -105,7 +103,6 @@ fun OverviewScreen(
                     }
                 }
 
-                // Add a header for recent transactions
                 item {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -120,10 +117,9 @@ fun OverviewScreen(
                         TextButton(onClick = { /* TODO: Navigate to all transactions */ }) {
                             Text(text = "View All")
                         }
+
                     }
                 }
-
-                // Add the list of transactions
                 items(state.recentTransactions) { transaction ->
                     TransactionListItem(transaction = transaction)
                 }
@@ -147,7 +143,6 @@ private fun OverviewScreenPreview() {
                     amount = "-£9.99",
                     category = "Subscriptions",
                     date = "Today",
-                    icon = Icons.Default.Warning
                 )
             ),
             budget = BudgetUiModel(
@@ -159,7 +154,7 @@ private fun OverviewScreenPreview() {
             ),
             isLoading = false
         )
-        // Use a MutableStateFlow for the preview
+
         val stateFlow = MutableStateFlow(sampleState)
 
         OverviewScreen(

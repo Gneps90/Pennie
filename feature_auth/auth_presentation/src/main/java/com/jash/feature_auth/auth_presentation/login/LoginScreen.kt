@@ -139,6 +139,7 @@ private fun LoginScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
             PennieActionButton(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.login),
                 isLoading = state.isLoggingIn,
                 enabled = state.canLogin && !state.isLoggingIn,

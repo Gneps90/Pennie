@@ -30,9 +30,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jash.core.presentation.designsystem.AnalyticsIcon
 import com.jash.core.presentation.designsystem.ArrowLeftIcon
 import com.jash.core.presentation.designsystem.LogoIcon
+import com.jash.core.presentation.designsystem.LogoutIcon
 import com.jash.core.presentation.designsystem.PennieTheme
 import com.pennie.core.presentation.designsystem.R
 import com.jash.core.presentation.designsystem.Satoshi
@@ -143,7 +143,7 @@ private fun PennieToolbarPreview() {
             },
             menuItems = listOf(
                 DropDownItem(
-                    icon = AnalyticsIcon,
+                    icon = LogoutIcon,
                     title = "Analytics"
                 )
             )

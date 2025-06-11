@@ -9,9 +9,9 @@ val SmallLogo: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.pennielogo)
 
-val AnalyticsIcon: ImageVector
+val EducationIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.analytics)
+    get() = ImageVector.vectorResource(id = R.drawable.graduation_cap)
 val ArrowLeftIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.arrow_left)
@@ -36,9 +36,9 @@ val EmailIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.email)
 
-val ExclamationMarkIcon: ImageVector
+val HealthIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.danger)
+    get() = ImageVector.vectorResource(id = R.drawable.heart_pulse)
 
 val EyeClosedIcon: ImageVector
     @Composable
@@ -48,9 +48,9 @@ val EyeOpenedIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.eye_opened)
 
-val FinishIcon: ImageVector
+val TransportIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.finish)
+    get() = ImageVector.vectorResource(id = R.drawable.car_front)
 
 val KeyboardArrowDownIcon: ImageVector
     @Composable
@@ -60,9 +60,9 @@ val KeyboardArrowUpIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.keyboard_arrow_up)
 
-val LocationIcon: ImageVector
+val TravelIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.location)
+    get() = ImageVector.vectorResource(id = R.drawable.plane)
 
 val LockIcon: ImageVector
     @Composable
@@ -74,31 +74,31 @@ val LogoIcon: ImageVector
 
 val LogoutIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.logout)
+    get() = ImageVector.vectorResource(id = R.drawable.log_out)
 
-val PauseIcon: ImageVector
+val FoodIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.pause)
+    get() = ImageVector.vectorResource(id = R.drawable.utensils)
 
-val PersonIcon: ImageVector
+val AccountIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.person)
+    get() = ImageVector.vectorResource(id = R.drawable.user)
 
-val RunOutlinedIcon: ImageVector
+val HousingIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.run_outlined)
+    get() = ImageVector.vectorResource(id = R.drawable.house)
 
-val RunIcon: ImageVector
+val UtilsIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.run)
+    get() = ImageVector.vectorResource(id = R.drawable.lightbulb)
 
-val StartIcon: ImageVector
+val ShoppingIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.start)
+    get() = ImageVector.vectorResource(id = R.drawable.shopping_bag)
 
-val StopIcon: ImageVector
+val EntertainmentIcon: ImageVector
     @Composable
-    get() = ImageVector.vectorResource(id = R.drawable.stop)
+    get() = ImageVector.vectorResource(id = R.drawable.gamepad_2)
 
 val WifiIcon: ImageVector
 @Composable
@@ -111,3 +111,15 @@ val TrendingUpIcon: ImageVector
 val TrendingDownIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.trending_down)
+
+val PersonalCareIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.shower_head)
+
+val GiftIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.gift)
+
+val OtherIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.tag)

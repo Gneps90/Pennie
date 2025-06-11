@@ -12,14 +12,13 @@ import java.text.NumberFormat
 import java.util.Locale
 
 class OverviewViewModel(
-    getOverviewData: GetOverviewData // Use case to get data from the repository
+    getOverviewData: GetOverviewData
 ) : ViewModel() {
 
     val state = getOverviewData.overviewDataFlow
         .map { data ->
             val currencyFormat = NumberFormat.getCurrencyInstance(Locale.UK)
 
-            // Map the raw data (e.g., Double) into the formatted OverviewState
             OverviewState(
                 formattedBalance = currencyFormat.format(data.totalBalance),
                 formattedIncome = currencyFormat.format(data.totalIncome),
@@ -35,7 +34,6 @@ class OverviewViewModel(
                         },
                         category = it.category,
                         date = "Today", // TODO: Implement a real date formatter
-                        icon = Icons.Default.Warning // TODO: Map category to a real icon
                     )
                 },
                 isLoading = false

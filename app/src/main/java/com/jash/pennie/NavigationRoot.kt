@@ -25,7 +25,7 @@ fun NavigationRoot(
         authGraph(navController)
         composable("overview") {
             val viewModel: OverviewViewModel = koinViewModel()
-            OverviewScreen(state = viewModel.state)
+            OverviewScreen(stateFlow = viewModel.state)
         }
     }
 }

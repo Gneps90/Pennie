@@ -16,8 +16,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.jash.core.presentation.designsystem.CrossIcon
 import com.jash.core.presentation.designsystem.PennieTheme
-import com.jash.core.presentation.designsystem.RunIcon
+
 
 @Composable
 fun PennieFloatingActionButton(
@@ -58,7 +59,7 @@ fun PennieFloatingActionButton(
 private fun RunnySideUpFloatingButtonPreview(){
     PennieTheme {
         PennieFloatingActionButton(
-            icon = RunIcon,
+            icon = CrossIcon,
             onClick = {}
         )
     }
