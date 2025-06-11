@@ -1,6 +1,7 @@
 package com.jash.pennie
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -9,8 +10,10 @@ import androidx.navigation.navigation
 import com.jash.feature_auth.auth_presentation.intro.IntroScreenRoot
 import com.jash.feature_auth.auth_presentation.login.LoginScreenRoot
 import com.jash.feature_auth.auth_presentation.register.RegisterScreenRoot
+import com.jash.feature_overview.presentation.OverviewEvent
 import com.jash.feature_overview.presentation.OverviewScreen
 import com.jash.feature_overview.presentation.OverviewViewModel
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -18,14 +21,33 @@ fun NavigationRoot(
     navController: NavHostController,
     isLoggedIn: Boolean,
 ) {
+    val mainViewModel: MainViewModel = koinViewModel()
+
     NavHost(
         navController = navController,
         startDestination = if (isLoggedIn) "overview" else "auth"
     ) {
         authGraph(navController)
         composable("overview") {
-            val viewModel: OverviewViewModel = koinViewModel()
-            OverviewScreen(stateFlow = viewModel.state)
+            val overviewViewModel: OverviewViewModel = koinViewModel()
+
+            LaunchedEffect(Unit) {
+                overviewViewModel.events.collectLatest { event ->
+                    when (event) {
+                        OverviewEvent.OnLogout -> {
+                            mainViewModel.logout()
+                            navController.navigate("auth") {
+                                popUpTo("overview") { inclusive = true }
+                            }
+                        }
+                    }
+                }
+            }
+
+            OverviewScreen(
+                stateFlow = overviewViewModel.state,
+                onAction = overviewViewModel::onAction
+            )
         }
     }
 }

@@ -9,5 +9,5 @@ android {
 dependencies {
     implementation(project(":core:domain"))
     implementation(project(":feature_overview:domain"))
-    implementation(libs.presentation)
+    implementation(projects.core.presentation.designsystem)
 }

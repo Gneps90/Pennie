@@ -7,7 +7,6 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val coreDataModule = module {
-    // Provides the single, encrypted implementation of SessionStorage
-    // This is still needed to store the user's login session on the device.
+
     singleOf(::EncryptedSessionStorage).bind<SessionStorage>()
 }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val sessionStorage: SessionStorage
-) : ViewModel() {
+): ViewModel() {
 
     var state by mutableStateOf(MainState())
         private set
@@ -18,11 +18,15 @@ class MainViewModel(
     init {
         viewModelScope.launch {
             state = state.copy(isCheckingAuth = true)
-            val authInfo = sessionStorage.get()
             state = state.copy(
-                isLoggedIn = authInfo != null,
-                isCheckingAuth = false
+                isLoggedIn = sessionStorage.get() != null
             )
+            state = state.copy(isCheckingAuth = false)
+        }
+    }
+    fun logout() {
+        viewModelScope.launch {
+            sessionStorage.set(null)
         }
     }
 }

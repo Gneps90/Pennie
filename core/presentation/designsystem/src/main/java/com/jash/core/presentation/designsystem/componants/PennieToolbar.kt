@@ -144,7 +144,7 @@ private fun PennieToolbarPreview() {
             menuItems = listOf(
                 DropDownItem(
                     icon = LogoutIcon,
-                    title = "Analytics"
+                    title = "Log Out"
                 )
             )
         )

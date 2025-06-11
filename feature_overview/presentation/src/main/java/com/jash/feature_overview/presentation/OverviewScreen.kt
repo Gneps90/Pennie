@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,9 +36,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OverviewScreen(
-    stateFlow: StateFlow<OverviewState>
+    stateFlow: StateFlow<OverviewState>,
+    onAction: (OverviewAction) -> Unit
 ) {
     val topAppBarState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
@@ -54,9 +57,15 @@ fun OverviewScreen(
                 menuItems = listOf(
                     DropDownItem(
                         icon = LogoutIcon,
-                        title = stringResource(id = R.string.analytics)
+                        title = stringResource(id = R.string.log_out),
                     ),
                 ),
+                onMenuItemClick = { index ->
+                    when (index){
+                        //0 -> onAction(OverviewAction.OnAnalyticsClick)
+                        0 -> onAction(OverviewAction.OnLogoutClick)
+                    }
+                },
                 startContent = {
                     Icon(
                         imageVector = LogoIcon,
@@ -128,37 +137,55 @@ fun OverviewScreen(
     }
 }
 
-@Preview(showBackground = false)
+@Preview(showBackground = true)
 @Composable
 private fun OverviewScreenPreview() {
     PennieTheme {
+        // 1. Create a sample state with data for the preview.
         val sampleState = OverviewState(
-            formattedBalance = "£7,230.50",
-            formattedIncome = "£1,234.80",
-            formattedExpenses = "£256.30",
+            formattedBalance = "£1,250.75",
+            formattedIncome = "£2,100.00",
+            formattedExpenses = "£849.25",
+            isLoading = false,
+            budget = BudgetUiModel(
+                title = "Monthly Food Budget",
+                progress = 0.65f,
+                percentageText = "65%",
+                amountText = "£325.00 / £500.00",
+                isLoading = false
+            ),
             recentTransactions = listOf(
                 TransactionUiModel(
                     id = "1",
-                    description = "Spotify Premium",
-                    amount = "-£9.99",
-                    category = "Subscriptions",
-                    date = "Today",
+                    description = "Grocery Shopping",
+                    amount = "-£75.50",
+                    category = "Food",
+                    date = "10 Jun"
+                ),
+                TransactionUiModel(
+                    id = "2",
+                    description = "Salary",
+                    amount = "+£2,100.00",
+                    category = "Salary",
+                    date = "09 Jun"
+                ),
+                TransactionUiModel(
+                    id = "3",
+                    description = "Cinema Tickets",
+                    amount = "-£24.00",
+                    category = "Entertainment",
+                    date = "08 Jun"
                 )
-            ),
-            budget = BudgetUiModel(
-                title = "Monthly Budget",
-                progress = 0.75f,
-                percentageText = "75%",
-                amountText = "£750 / £1000",
-                isLoading = false
-            ),
-            isLoading = false
+            )
         )
 
-        val stateFlow = MutableStateFlow(sampleState)
+
+        val sampleStateFlow = remember { MutableStateFlow(sampleState) }
+
 
         OverviewScreen(
-            stateFlow = stateFlow,
+            stateFlow = sampleStateFlow,
+            onAction = {}
         )
     }
 }

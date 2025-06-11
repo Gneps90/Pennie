@@ -4,4 +4,5 @@
     <string name="dashboard">Dashboard</string>
     <string name="analytics">Analytics</string>
     <string name="month_budget">Budget Tracker</string>
+    <string name="log_out">Log out</string>
 </resources>
